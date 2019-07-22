@@ -80,7 +80,7 @@ let TagsInput = withState('state', 'setState', () =>
       splitCommas,
       PopoverContents,
       style,
-      autofocus
+      autoFocus
     }) => {
       let containerRef
       let inputRef
@@ -176,7 +176,7 @@ let TagsInput = withState('state', 'setState', () =>
                 }}
                 value={state.currentInput}
                 placeholder={placeholder}
-                autofocus={autofocus}
+                autoFocus={autoFocus}
               />
             </Flex>
             {PopoverContents && (
