@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import _ from 'lodash/fp'
-import { ciel } from 'lodash'
 import F from 'futil-js'
 import { observer, Observer } from 'mobx-react'
 import { exampleTypes } from 'contexture-client'
+import treeLens from 'contexture-client/src/lens'
 import { Flex } from '../layout/Flex'
 import injectTreeNode from '../utils/injectTreeNode'
-
-let ceilTens = x => ciel(x, -1)
 
 let CheckboxDefault = props => <input type="checkbox" {...props} />
 let RadioListDefault = ({ value, onChange, options }) => (
@@ -87,6 +85,50 @@ let FacetOptionsFilter = ({ tree, node, TextInput, Button, ButtonGroup }) => {
   )
 }
 
+let clampModel = (lens, interval = 10, min = interval, max = Infinity) => {
+  let increased = (x = min) => x + interval - (x % interval)
+  let decreased = (x = min) => x - interval - (x % interval)
+
+  let canIncrease = increased(F.view(lens)) <= max
+  let canDecrease = decreased(F.view(lens)) >= min
+
+  let increase = canIncrease && F.sets(increased(F.view(lens)), lens)
+  let decrease = canDecrease && F.sets(decreased(F.view(lens)), lens)
+  return {
+    increased,
+    decreased,
+    canIncrease,
+    canDecrease,
+    increase,
+    decrease,
+    more: increase,
+    less: decrease,
+  }
+}
+
+let clampModel2 = (value, interval = 10, min = interval, max = 999999999) => {
+  let increased = value + interval - (value % interval)
+  let decreased = value - interval - (value % interval)
+  let canIncrease = increased <= max
+  let canDecrease = decreased >= min
+  return {
+    max, min, interval, value,
+    increased,
+    decreased,
+    canIncrease,
+    canDecrease
+  }
+}
+
+let clampLens = (lens, interval, min, max) => {
+  let model = clampModel2(F.view(lens) || min, interval, min, max)
+  return {
+    ...model,
+    more: F.sets(model.increased, lens),
+    less: model.canDecrease && F.sets(model.decreased, lens),
+  }
+}
+
 let Facet = injectTreeNode(
   observer(
     ({
@@ -102,8 +144,18 @@ let Facet = injectTreeNode(
       formatCount = x => x,
       ButtonGroup = 'div',
       minSize = 10,
-      sizeIncrement = 10,
-    }) => (
+      sizeInterval = 10,
+    }) => {
+      let clamp =  clampLens(
+        treeLens(tree, node.path, 'size'),
+        sizeInterval, minSize,
+        node.context.cardinality
+      )
+      let { canIncrease, canDecrease, more, less } = clamp
+      console.log(clamp)
+      console.log(node.size)
+      console.log(node.context.options.length)
+      return (
       <div className="contexture-facet">
         <RadioList
           value={node.mode || 'include'} // Fix by changing defaults in client example type
@@ -155,35 +207,13 @@ let Facet = injectTreeNode(
                 _.compact,
                 F.intersperse(' — ')
               )([
-                _.min([node.size, node.context.options.length]) > minSize && (
-                  <a
-                    key="less"
-                    onClick={() =>
-                      tree.mutate(node.path, {
-                        size: _.max([
-                          _.min([
-                            node.size,
-                            ceilTens(node.context.options.length),
-                          ]) - sizeIncrement,
-                          minSize,
-                        ]),
-                      })
-                    }
-                    style={{ cursor: 'pointer' }}
-                  >
+                true && (
+                  <a key="less" onClick={less} style={{ cursor: 'pointer' }}>
                     View Less
                   </a>
                 ),
-                node.context.cardinality > (node.size || minSize) && (
-                  <a
-                    key="more"
-                    onClick={() =>
-                      tree.mutate(node.path, {
-                        size: (node.size || minSize) + sizeIncrement,
-                      })
-                    }
-                    style={{ cursor: 'pointer' }}
-                  >
+                true && (
+                  <a key="more" onClick={more} style={{ cursor: 'pointer' }}>
                     View More
                   </a>
                 ),
@@ -192,7 +222,7 @@ let Facet = injectTreeNode(
           </Flex>
         )}
       </div>
-    )
+    )}
   ),
   exampleTypes.facet
 )
