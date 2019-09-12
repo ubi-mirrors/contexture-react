@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Button,
   ButtonGroup,
@@ -21,35 +23,9 @@ import Select from './Select'
 import Root from './Root'
 import Icon from './Icon'
 
-/*
-let baseTheme = {
-  AlternateButton: 'button',
-  Box: 'div',
-  ButtonGroup: 'div',
-  Checkbox: props => <input type="checkbox" {...props} />,
-  DateInput: defaultProps({ native: true })(DateInput),
-  Icon,
-  Input: 'input',
-  DropdownItem: 'li',
-  Modal,
-  NumberInput: props => <input type="number" {...props} />,
-  NestedPicker,
-  PagerItem: ({ children }) => <span>{children}</span>,
-  Popover,
-  RadioList: defaultProps({ native: true })(RadioList),
-  Select,
-  Table: 'table',
-  Tag,
-  TagsInput,
-  TextHighlight,
-  TextInput: 'input',
-}
-*/
-
 export default {
-  //Box: Card,
   Button,
-  AlternateButton: defaultProps({ outline: true })(Button),
+  AlternateButton: props => <div style={{ padding: 10 }} {...props} />,
   ButtonGroup: defaultProps({ style: { display: 'flex' } })(ButtonGroup),
   DropdownItem,
   //Popover,
