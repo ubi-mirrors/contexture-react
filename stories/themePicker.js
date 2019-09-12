@@ -5,11 +5,12 @@ import greyVest from '../src/themes/greyVest'
 import blueberry from '../src/themes/blueberry'
 import base from '../src/themes/base'
 import material from '../src/themes/material'
+import bootstrap from '../src/themes/bootstrap'
 import { ThemeProvider, ThemeConsumer } from '../src/utils/theme'
 import { Flex } from '../src/greyVest'
 import { useLens } from '../src/utils/react'
 
-let themes = { base, blueberry, greyVest, material }
+let themes = { base, blueberry, greyVest, material, bootstrap }
 
 let ThemeSwitcher = ({ defaultTheme = 'base', children }) => {
   let theme = useLens(defaultTheme)

@@ -15,5 +15,5 @@ storiesOf('Live Demos|IMDB Search', module)
   .addWithJSX('Custom Result Components', require('./resultComponents').default)
 
 storiesOf('Live Demos|IMDB Search', module)
-  .addDecorator(ThemePicker('greyVest'))
+  .addDecorator(ThemePicker('bootstrap'))
   .addWithJSX('Dynamic Search Layout', require('./searchLayout').default)
