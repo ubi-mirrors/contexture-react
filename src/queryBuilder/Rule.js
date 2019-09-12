@@ -8,6 +8,7 @@ import FilterContents from './FilterContents'
 import FilterDragSource from './DragDrop/FilterDragSource'
 import { oppositeJoin, indent } from '../utils/search'
 import { useLensObject } from '../utils/react'
+import { withTheme } from '../utils/theme'
 
 let Rule = ({
   node,
@@ -15,6 +16,7 @@ let Rule = ({
   tree,
   connectDragSource,
   isDragging,
+  theme: { AlternateButton, ButtonGroup, Icon },
   ...props
 }) => {
   let hover = useLensObject({
@@ -40,35 +42,30 @@ let Rule = ({
           {...F.domLens.hover(hover.rule)}
         >
           <FilterContents {...{ node, tree, ...props }} />
-          <div
+          <ButtonGroup
             style={{
               ...(F.view(hover.rule) || { visibility: 'hidden' }),
-              minWidth: 82,
+              overflow: 'visible',
+              alignItems: 'flex-start',
+              marginLeft: 10,
             }}
           >
-            <button
+            <AlternateButton
               {...F.domLens.hover(hover.indent)}
               style={{
                 color: styles.joinColor(oppositeJoin(parent.join)),
-                ...styles.btn,
-                ...styles.roundedRight0,
               }}
               onClick={() => indent(tree, parent, node)}
             >
-              >
-            </button>
-            <button
+              <Icon icon="MoveRight" />
+            </AlternateButton>
+            <AlternateButton
               {...F.domLens.hover(hover.remove)}
-              style={{
-                ...styles.btn,
-                ...styles.roundedLeft0,
-                marginLeft: '-1px',
-              }}
               onClick={() => tree.remove(node.path)}
             >
-              X
-            </button>
-          </div>
+              <Icon icon="RemoveColumn" />
+            </AlternateButton>
+          </ButtonGroup>
         </div>
       </Indentable>
     </div>
@@ -77,5 +74,6 @@ let Rule = ({
 
 export default _.flow(
   observer,
+  withTheme,
   FilterDragSource
 )(Rule)

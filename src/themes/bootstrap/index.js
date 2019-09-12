@@ -1,8 +1,6 @@
-import React from 'react'
 import {
   Button,
   ButtonGroup,
-  Card,
   DropdownItem,
   Modal,
   Input,
@@ -10,16 +8,18 @@ import {
 } from 'reactstrap'
 import { defaultProps } from 'recompose'
 import F from 'futil-js'
-import { lensify } from '../../utils/react'
+import { expandProp } from '../../utils/react'
 
-let conversion = (...lens) => ({
+let openBinding = (...lens) => ({
   isOpen: F.view(...lens),
   toggle: F.flip(...lens),
 })
-let lensConvert = lensify(conversion, 'isOpen')
+let lensConvert = expandProp('open', openBinding)
 
 // import Popover from './Popover'
 import Select from './Select'
+import Root from './Root'
+import Icon from './Icon'
 
 /*
 let baseTheme = {
@@ -47,24 +47,18 @@ let baseTheme = {
 */
 
 export default {
-  Box: Card,
+  //Box: Card,
   Button,
+  AlternateButton: defaultProps({ outline: true })(Button),
   ButtonGroup: defaultProps({ style: { display: 'flex' } })(ButtonGroup),
   DropdownItem,
   //Popover,
   Modal: lensConvert(Modal),
-  Root: ({ children }) => (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous"
-      />
-      {children}
-    </>
-  ),
+  Root,
+  Icon,
   Select,
   TextInput: defaultProps({ type: 'text' })(Input),
+  NumberInput: defaultProps({ type: 'number' })(Input),
+  // Checkbox:  defaultProps({ type: 'checkbox' })(Input),
   Table,
 }
