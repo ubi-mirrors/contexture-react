@@ -1,7 +1,7 @@
 import React from 'react'
-import * as F from 'futil-js'
+import * as F from 'futil'
 import { observer } from 'mobx-react'
-import { useLens } from '../utils/react'
+
 import styles from '../styles'
 import { Popover } from '../greyVest'
 import OperatorMenu from './OperatorMenu'
@@ -27,7 +27,6 @@ let BlankOperator = ({ open, node, child }) => (
     )}
   </div>
 )
-BlankOperator.displayName = 'BlankOperator'
 
 let OperatorLine = observer(({ node, child, style }) => (
   <div
@@ -66,10 +65,9 @@ let JoinOperator = ({ open, hover, node, child }) => (
     <OperatorLine {...{ node, child }} />
   </div>
 )
-JoinOperator.displayName = 'JoinOperator'
 
-let Operator = observer(({ hover, node, child, parent, tree, index }) => {
-  let open = useLens(false)
+let Operator = ({ hover, node, child, parent, tree, index }) => {
+  let open = React.useState(false)
   return (
     <div>
       {!(index !== 0 || node.join === 'not') ? (
@@ -90,7 +88,6 @@ let Operator = observer(({ hover, node, child, parent, tree, index }) => {
       </Popover>
     </div>
   )
-})
-Operator.displayName = 'Operator'
+}
 
-export default Operator
+export default observer(Operator)

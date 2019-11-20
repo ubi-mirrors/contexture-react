@@ -1,14 +1,24 @@
 // utils
-export * from './utils/schema'
-export * from './utils/theme'
+export {
+  fieldsFromSchema,
+  componentForType,
+  schemaFieldProps,
+} from './utils/schema'
+export {
+  ThemeProvider,
+  useTheme,
+  ThemeConsumer,
+  withNamedTheme,
+  withTheme,
+} from './utils/theme'
 
 // exampleTypes
-export * as ExampleTypes from './exampleTypes'
+export * from './exampleTypes'
 
 // generic search layouts
 export QueryBuilder from './queryBuilder/'
 export QueryWizard from './queryWizard'
-export * from './FilterList'
+export FilterList, { FilterActions, Label } from './FilterList'
 export FilterAdder from './FilterAdder'
 export FilterButtonList from './FilterButtonList'
 export SearchFilters, { SearchTree } from './SearchFilters'
@@ -19,6 +29,4 @@ export ToggleFiltersHeader from './ToggleFiltersHeader'
 export * from './greyVest'
 
 // themes
-export baseTheme from './themes/base'
-export greyVestTheme from './themes/greyVest'
-export blueberryTheme from './themes/blueberry'
+export * as themes from './themes'

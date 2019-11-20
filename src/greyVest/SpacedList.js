@@ -1,4 +1,4 @@
-import * as F from 'futil-js'
+import * as F from 'futil'
 import React from 'react'
 
 let SpacedList = ({ children, style = { marginBottom: '25px' } }) =>
@@ -10,6 +10,5 @@ let SpacedList = ({ children, style = { marginBottom: '25px' } }) =>
     ),
     children
   )
-SpacedList.displayName = 'SpacedList'
 
 export default SpacedList

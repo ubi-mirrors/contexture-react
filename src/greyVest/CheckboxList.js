@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash/fp'
-import F from 'futil-js'
+import F from 'futil'
 import { observer } from 'mobx-react'
 import Checkbox from './Checkbox'
 
@@ -25,6 +25,5 @@ let CheckboxList = ({ options, value, onChange, ...props }) => (
     )}
   </div>
 )
-CheckboxList.displayName = 'CheckboxList'
 
 export default observer(CheckboxList)

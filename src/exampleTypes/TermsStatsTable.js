@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import F from 'futil-js'
+import F from 'futil'
 import React from 'react'
 import { observer } from 'mobx-react'
 import { contexturify } from '../utils/hoc'
@@ -127,6 +127,5 @@ let TermsStatsTable = ({
     />
   </div>
 )
-TermsStatsTable.displayName = 'TermsStatsTable'
 
 export default contexturify(TermsStatsTable)

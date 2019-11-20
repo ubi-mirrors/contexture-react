@@ -1,6 +1,6 @@
 {
   "name": "contexture-react",
-  "version": "2.0.0",
+  "version": "2.9.3",
   "description": "React components for building contexture interfaces",
   "main": "dist/index.js",
   "scripts": {
@@ -14,17 +14,20 @@
     "lint": "eslint src stories .storybook .circleci __tests__",
     "lint-fix": "npm run lint -- --fix",
     "lint-ci": "npm run lint -- -o lint-results.json -f json",
-    "test": "jest --coverage --passWithNoTests",
+    "test": "jest --passWithNoTests",
     "test-ci": "npm t -- --json --outputFile=test-results.json",
     "duti": "duti",
     "fmt": "prettier --write '{src,stories,.storybook}/**/*'",
-    "duti:fix": "npm run lint-fix && npm run fmt"
+    "duti:fix": "npm run lint-fix && npm run fmt",
+    "update-pkg": "node updatePackage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smartprocure/contexture-react.git"
   },
-  "author": "Samuel Greene",
+  "author": {
+    "name": "Samuel Greene"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/smartprocure/contexture-react/issues"
@@ -46,10 +49,15 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(md)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|sass)$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.(md)$": "<rootDir>/../__mocks__/fileMock.js",
+      "\\.(css|less|sass)$": "<rootDir>/../__mocks__/styleMock.js"
     },
-    "testURL": "http://localhost/"
+    "testURL": "http://localhost/",
+    "rootDir": "src",
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "<rootDir>"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -86,7 +94,7 @@
     "babel-plugin-require-context-hook": "^1.0.0",
     "bootstrap": "^4.3.1",
     "contexture": "^0.2.1",
-    "contexture-client": "^2.26.0",
+    "contexture-client": "^2.26.3",
     "contexture-elasticsearch": "^0.10.2",
     "danger": "^6.1.13",
     "duti": "^0.15.0",
@@ -106,16 +114,21 @@
     "react-select": "^2.0.0",
     "react-test-renderer": "^16.2.0",
     "reactstrap": "^8.0.1",
-    "storybook-addon-jsx": "^7.1.0"
+    "read-pkg": "^5.2.0",
+    "storybook-addon-jsx": "^7.1.0",
+    "write-pkg": "^4.0.0"
   },
   "dependencies": {
-    "futil-js": "^1.61.0",
+    "futil": "^1.64.0",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react-date-picker": "^7.2.0",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
+    "react-measure": "^2.3.0",
     "react-outside-click-handler": "^1.2.3",
     "recompose": "^0.30.0"
-  }
+  },
+  "readme": "README.md"
 }

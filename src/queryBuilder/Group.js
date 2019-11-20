@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash/fp'
-import * as F from 'futil-js'
+import * as F from 'futil'
 import { observer } from 'mobx-react'
 import styles from '../styles'
 import Indentable from './preview/Indentable'
@@ -13,6 +13,7 @@ import { FilterMoveTarget } from './DragDrop/MoveTargets'
 let { background } = styles
 import { blankNode } from '../utils/search'
 import { useLensObject } from '../utils/react'
+import { setDisplayName } from 'recompose'
 
 let GroupItem = FilterDragSource(props => {
   let {
@@ -43,7 +44,11 @@ let GroupItem = FilterDragSource(props => {
   )
 })
 
-let Group = observer(props => {
+// we need to observe this here and not on the export because Group is referenced elsewhere in the file
+let Group = _.flow(
+  setDisplayName('Group'),
+  observer
+)(props => {
   let { parent, node, tree, adding, isRoot } = props
   let hover = useLensObject({ wrap: false, join: '', remove: false })
   return (
@@ -97,6 +102,5 @@ let Group = observer(props => {
     </Indentable>
   )
 })
-Group.displayName = 'Group'
 
 export default Group

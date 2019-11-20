@@ -1,7 +1,7 @@
-import F from 'futil-js'
+import F from 'futil'
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import ThemePicker from '../../stories/themePicker'
+import ThemePicker from '../stories/themePicker'
 import { useTheme } from '../utils/theme'
 import { StepsAccordion, AccordionStep } from '.'
 
@@ -15,7 +15,7 @@ let makeStepTitle = title => n => (
 storiesOf('Components|Search Components/Internals', module)
   .addDecorator(ThemePicker('greyVest'))
   .addWithJSX('StepsAccordion', () => {
-    let isClicked = F.stateLens(React.useState(false))
+    let isClicked = React.useState(false)
     let theme = useTheme()
     return (
       <StepsAccordion>

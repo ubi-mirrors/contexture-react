@@ -1,54 +1,231 @@
+# 2.9.3
+* TagsQuery: fix a bug where the actions popover closed itself when clicked on
+
+# 2.9.2
+* Add support for the "searchButtonProps" prop to the SearchBar
+
+# 2.9.1
+* Update `contexture-client` dev dependency and stories to use newly observable `disableAutoUpdate`
+* Add a GreyVest Modal story to demonstrate opening a modal from inside a popover
+
+# 2.9.0
+* Add FacetSelect component (a dropdown interface for the `facet` type) to ExampleTypes
+
+# 2.8.2
+* Fix bug in `selectedBinding`
+* Add stories for CheckableResultTable to illustrate lens (`selected`) and non-lens (`selectedValues`/`onChange`) APIs
+
+# 2.8.1
+* ActionMenu/TagsQuerySearchBar: Adds actionWrapper for handling action menu button feedback etc
+
+# 2.8.0
+* ExampleTypes: Update `CheckableResultTable` api to also accept `selectedValues` and `onChange` as alternatives to `selected`
+
+# 2.7.2
+* Default to `_.noop` for `TagsQuery`'s `addTag` prop
+
+# 2.7.1
+* Use `futil` package instead of `futil-js`
+* Deprecate `useLens` in favor of the new futil arrayLens API
+
+# 2.7.0
+* TagsQuerySearchBar: Hide search button when the tree is not in disableAutoUpdate mode
+
+# 2.6.2
+* TagsQuery: add `onAddTag` callback prop (takes the added `tag` as its argument)
+* ExpandableTagsQuery & TagsQuerySearchBar: improve collapse behavior
+
+# 2.6.1
+* GreyVest: debounce Popover's `onClose` handler (fixes a bug where toggling a popover's open state just kept the popver open)
+
+# 2.6.0
+* FilterList: remove refresh icon & replace it with an "apply filter" button
+
+# 2.5.4
+* TagsQuery: slightly reduce the inner height
+
+# 2.5.3
+* ExampleTypes: Remove loader from Date
+* FilterList: hide overflow menu & update button on paused filters
+* GreyVest: reduce margins/padding on FilterList, Table & SearchLayout
+
+# 2.5.2
+* Remove loader from FilterAdder
+* TagsQuery: add a constant for "tags"/"keywords" terminology
+
+# 2.5.1
+* FilterList/SearchFilters: update pause icon styling
+* ExampleTypes: Remove loader from TagsQuery
+* Add `contexturifyWithoutLoader` HOC
+
+# 2.5.0
+* ExampleTypes: Add an expanding/collapsing TagsQuerySearchBar component
+
+# 2.4.1
+* Adds the latest version of Moment to the dependencies
+
+# 2.4.0
+* GreyVest: Add GridItem component
+* GreyVest: Add `rows`, `areas`, `placeContent` and `placeItems` props to Grid
+* GreyVest: Drop IE support for Grid component
+* GreyVest: Add `inline` flag prop to Grid and Flex
+
+# 2.3.1
+* GreyVest: Change the TreePause and TreeUnpause icons to use material's `unfold_less` and `unfold_more` (formerly the circled plus/minus icons)
+* SearchFilters: Swap the order of TreePauseButton and ToggleFiltersButton in the BasicFilters header
+
+# 2.3.0
+* Add theme support to contexturify's `withLoader`: it now uses `theme.Loader` for the Loader component if it exists, and if a Loader component hasn't been passed as a prop
+
+# 2.2.2
+* Fixes facets search box by making it more intuitive to the user when filtering the facet checkboxes
+
+# 2.2.1
+* Fixes the tags with no space breaking the UI
+* Fixes the tag popover where the refresh facet icon was showing over it
+* Fixes the tag popover keyword breaking the UI
+
+# 2.2.0
+* Add 'counts' to the facet hide config in order to hide the facet counts
+
+# 2.1.1
+* Add `search-layout` and `search-layout-{mode}` classNames to SearchLayout
+
+# 2.1.0
+* Add `BasicFilters` and `BuilderFilters` props to SearchFilters for overriding/customizing filter components in the layout
+
+# 2.0.6
+* camelCase `defaultNodeProps` schema util
+* Be explicit about utility function exports in `src/index.js`
+
+# 2.0.5
+* Ensure components using `openBinding` observe the correct things
+
+# 2.0.4
+* Fix nested groups not updating in QueryBuilder
+
+# 2.0.3
+* Fix "within"/"not within" dropdown in Geo component
+
+# 2.0.2
+* Fix order of Text HOCs
+
+# 2.0.1
+* Don't export the material theme
+
 # 2.0.0
 
 ## Changes
-* Bump mobx-react to latest version
-* Remove usages of mobx-react Provider
-* Refactor `injectTreeNode` into `withNode`, `withLoader`, and `contexturify` HOCs
-* Remove QuickStart story
-* Remove `utils/mobx-react-utils`, `utils/dsl`, and `utils/tree`
+
+* New theme API! No more prop drilling! Nested theme support! 🎉
+* Rework higher-order components
+  * Refactor `injectTreeNode` into `withNode`, `withLoader`, and `contexturify` HOCs
+  * Remove usages of mobx-react Provider
 * Add `utils/react`, with new `useLens` and `useLensObject` functions
-* Remove `types` and `typeComponents` props from QueryBuilder and FilterList
-* Add support for a conventional value/setter prop API to the GreyVest Modal and Popover components (as `isOpen`/`onClose`) in addition to the existing futil lens API
-  * Rename the lens prop from `isOpen`, now used for the boolean value, to `open` (breaking change)
-* Restructure the component library
+* API changes
+  * Remove `types` and `typeComponents` props from QueryBuilder and FilterList
+  * Add support for a conventional value/setter prop API to the GreyVest Modal and Popover components (as `isOpen`/`onClose`) in addition to the existing futil lens API
+    * Rename the lens prop from `isOpen`, now used for the boolean value, to `open`
+  * Remove `Input` prop from TermsStatsTable (now consumes `TextInput` from theme)
+  * Remove `HeaderCell` prop from ResultTable (still accessible through the `HeaderCell` property on the field schema)
+* Restructure the component library for a cleaner distinction between search components, themes, and GreyVest
+  * Publish the GreyVest component library on npm as the `grey-vest` package!
+  * Export exampleTypes components individually from contexture-react, rather than in an `ExampleTypes` object
   * Consolidate the following layout components into the GreyVest component library: Awaiter, BarChart, Dynamic, ExpandableTable, Flex, Grid, NestedPicker, Popover, Portal, SpacedList, TagsInput, Tag, DateInput, StripedLoader
   * Move or remove several GreyVest component exports:
-    * Adder - deprecated by theme support on FilterAdder
-    * Pager - deprecated by theme support on ResultPager
-    * PagedResultTable - added to ExampleTypes
-    * FilterButtonList - deprecated by theme support (use the top-level export instead)
-    * FilterList - deprecated by theme support (use the top-level export instead)
-    * QueryBuilder - deprecated by theme support (use the top-level export instead)
-    * QueryWizard - deprecated by theme support (use the top-level export instead)
-    * UnmappedNodeComponent - now a theme component
-    * CheckButton - moved to purgatory
-    * ToggleFiltersButton - moved to purgatory
-    * TreePauseButton - moved to purgatory
-    * SearchTree - moved to top-level export
-    * ToggleFiltersHeader - moved to top-level export
-    * SearchLayout - now a generic search interface (moved to top-level export)
-    * SearchLayout - now a generic search interface (moved to top-level export)
-    * SearchFilters - now a generic search interface (moved to top-level export)
-    * AddableFilterList - now part of SearchFilters
-    * FiltersBox - now part of SearchFilters
+    * Removed:  Adder (use FilterAdder), Pager (use ResultPager)
+    * Moved to ExampleTypes: PagedResultTable
+    * Moved to top-level exports: FilterButtonList, FilterList, QueryBuilder, QueryWizard, SearchTree, ToggleFiltersHeader, SearchLayout, SearchFilters
+    * Moved to GreyVest theme: MissingTypeComponent (also renamed to UnmappedNodeComponent)
+    * Moved to purgatory: CheckButton, ToggleFiltersButton, TreePauseButton
+    * Moved to SearchFilters: AddableFilterList, FiltersBox
   * Rename some GreyVest component exports:
     * ListItem/ListGroupItem -> DropdownItem
     * GVStyle -> Style
     * Highlight -> TextHighlight
     * Input -> TextInput
     * IconButton -> TextButton
+* Add new docs and stories
+* Use port 3001 for the storybook server instead of 3000 (to avoid conflicts with other servers that might be running on 3000)
+* Bump mobx-react to latest version
+* Kill unused things
+  * Remove QuickStart story
+  * Remove `utils/mobx-react-utils`, `utils/dsl`, and `utils/tree`
+
+
+## Highlights
+
+### Theme overhaul
+
+Contexture-react is themed at the _component_ level -- that is, our search interfaces accept props for components like Button and Modal, and render whatever is given. The benefit of this approach is that it supports any degree of customization, from a small style adjustment to a major functionality overhaul, through the same relatively simple API.
+
+Version 1.0 laid the groundwork for the theme API, but it was unpolished and had several disadvantages. Without external state, prop drilling was a major issue: theme props often had to be passed uselessly through multiple levels of hierarchy before arriving at whichever deeply-nested component needed them. And, because applying a theme to a search interface required explicitly passing in each theme component, actually using themes was tedious, inflexible, and heavy with boilerplate.
+
+For version 2.0, we added a brand-new theme API that leverages React context to manage state, with several options for consuming theme props from it on a per-component basis -- no more need for prop drilling or re-exporting search components with `defaultProps`.
+
+### HOC overhaul
+
+In 1.0, many contexture-react search components relied on byzantine wrappers like `injectTreeNode` and `Component`, which were difficult to reason about for new contributors. They also often depended on deprecated APIs like mobx-react's Provider, which is obsolete in the age of React hooks.
+
+All of our HOCs have been removed or rewritten in version 2.0, and our search components have been modernized to take advantage of React hooks for state management where it makes sense to do so (while keeping the good parts of mobx, of course).
+
+We broke down `injectTreeNode` into two small, composable HOCs: `withNode`, which fetches a contexture node from `tree` and `path` props, and `withLoader`, which wraps the component in a loader element that activates based on the node's status. Since they are often (but not always!) used together, we also added the `contexturify` HOC, which composes those two together with the theme-consuming HOC `withTheme`.
+
+We also vastly improved our displayName handling throughout, which should lead to a much better debugging experience. 😊
 
 ## Migration Guide
-* Stop using any utils that aren't explicitly exposed.
-  * We removed a number of internal utils which weren't technically publicly exposed, but we've seen usage where devs reach deep into the package for things like `injectTreeNode`
-* Explicitly pass `tree` to everything that was previous wrapped in a `Provider` with `tree` on it
-  * Passing `tree` via context with `Provider` from `mobx-react` is no longer supported. We might add similar functionality with native react context in a future release but do not have specific plans to do so yet. Usage by end users was dropping off and it adds a non-obvious level of indirection for only a few characters of savings.
-* Replace all usage of `types` and `typeComponents` with `mapNodeToProps` leveraging `componentForType`
-  * `QueryBuilder` and `FilterList` dropped support for `types` and `typeComponents` to simplify the API surface and reduce the number of things needed to understand the library. `mapNodeToProps` lets you completely replace the react component for a given node, so supporting both that and an type->component object map was just another thing to know about the API.
-* Create nodes explicitly on every contexture-client tree instance that was relying on the QuickStart functionality.
-  * Example types can no longer automatically add contexture nodes to the tree. This was found in the QuickStart story and was designed to reduce barriers to entry, but the abstraction was leaky and radically increased complexity of our implementation despite no known usages in the wild. More often than not, it was just a potential source of bugs for end users. We might add support for something similar in a future release.
-* Rename the `isOpen` prop to `open` in all GreyVest Modal and Popover components
-  * We renamed the lens prop on the Modal and Popover from `isOpen` to `open`, in order to add support for a more conventional value/setter API. The new API accepts the `isOpen` and `onClose` props for value and setter in addition to the `open` prop for a lens.
+1.  **Stop using any utils that aren't explicitly exposed.**
+
+    We removed a number of internal utils which weren't technically publicly exposed, but we've seen usage where devs reach deep into the package for things like `injectTreeNode`
+
+2.  **Explicitly pass `tree` to everything that was previous wrapped in a `Provider` with `tree` on it.**
+   
+     Passing `tree` via context with `Provider` from `mobx-react` is no longer supported. We might add similar functionality with native react context in a future release but do not have specific plans to do so yet. Usage by end users was dropping off and it adds a non-obvious level of indirection for only a few characters of savings.
+
+3.  **Replace all usage of `types` and `typeComponents` with `mapNodeToProps` leveraging `componentForType`.**
+
+    `QueryBuilder` and `FilterList` dropped support for `types` and `typeComponents` to simplify the API surface and reduce the number of things needed to understand the library. `mapNodeToProps` lets you completely replace the react component for a given node, so supporting both that and a type->component object map was just another thing to know about the API.
+
+    The `mapNodeToProps` prop accepts a function of the form `(node, fields) -> props`. The `componentForType` utility function accepts a TypeMap and returns a function of this form. Together, these two functions can work as a drop-in replacement for the old `typeComponents`API, eg:
+
+    ```jsx
+    <FilterList typeComponents={TypeMap} {...props} />
+    ```
+
+    becomes:
+
+    ```jsx
+    <FilterList mapNodeToProps={componentForType(TypeMap)} />
+    ```
+
+    If you were already using both `mapNodeToProps` and `typeComponents` (or `types`), the `F.mergeOverAll` futil function might prove useful, eg:
+
+    ```jsx
+    <FilterList
+      typeComponents={TypeMap}
+      mapNodeToProps={myMappingFunction}
+    />
+    ```
+
+    becomes:
+
+    ```jsx
+    <FilterList
+      mapNodeToProps={F.mergeOverAll([
+        componentForType(TypeMap),
+        myMappingFunction
+      ])}
+    />
+    ```
+
+
+4.  **Create nodes explicitly on every contexture-client tree instance that was relying on the QuickStart functionality.**
+
+     Example types can no longer automatically add contexture nodes to the tree. This was found in the QuickStart story and was designed to reduce barriers to entry, but the abstraction was leaky and radically increased complexity of our implementation despite no known usages in the wild. More often than not, it was just a potential source of bugs for end users. We might add support for something similar in a future release.
+
+5. **Rename the `isOpen` prop to `open` in all GreyVest Modal and Popover components.**
+   
+     In 2.0, the lens prop on the GreyVest Modal and Popover components has been changed from `isOpen` to `open`. The new API accepts the `isOpen` and `onClose` props for a boolean value and setter function, respectively, in addition to the `open` prop for a lens. This is a *serious breaking change*, but we feel that adding support for a more conventional value/setter API to our component library will be worth it in the long run.
 
 # 1.58.0
 * DateInput: new component
