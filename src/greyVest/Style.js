@@ -93,6 +93,7 @@ export default () => (
       .gv-table td, .gv-table th {
         padding: ${tableCellPadding}px;
         text-align: left;
+        max-width: 432px;
       }
       .gv-table th > span {
         display: flex;
