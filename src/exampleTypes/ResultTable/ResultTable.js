@@ -92,5 +92,4 @@ let ResultTable = ({
   )
 }
 
-export let PagedResultTable = contexturify(ResultTable)
-export default PagedResultTable
+export default contexturify(ResultTable)

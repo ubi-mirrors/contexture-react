@@ -1,1 +1,1 @@
-export default from './TagsQuery'
+export default, { innerHeight } from './TagsQuery'
