@@ -114,3 +114,7 @@ export let pagination = () => {
     </Box>
   )
 }
+
+export let withoutFooter = () => (
+  <ResultTable tree={TestTree()} path={['results']} infer disablePagination />
+)
