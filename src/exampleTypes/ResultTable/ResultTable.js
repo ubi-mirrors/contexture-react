@@ -29,6 +29,7 @@ let ResultTable = ({
   Row = Tr, // accept a custom Row component so we can do fancy expansion things
   mapNodeToProps = () => ({}),
   pageSizeOptions, // an array of options to set the # of rows per page (default [20, 50, 100, 250])
+  disablePagination,
   theme: { Table },
 }) => {
   // From Theme/Components
@@ -87,7 +88,9 @@ let ResultTable = ({
           }}
         />
       </Table>
-      <ResultTableFooter {...{ tree, node, path, pageSizeOptions }} />
+      {!disablePagination && (
+        <ResultTableFooter {...{ tree, node, path, pageSizeOptions }} />
+      )}
     </>
   )
 }
